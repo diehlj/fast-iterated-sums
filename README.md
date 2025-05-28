@@ -16,7 +16,7 @@ The core concept is based on generalizing iterated-sum signatures from 1D time-s
     python -m venv .venv
     ```
     > Note that Python 3.12.3 was used in this research. If you are using uv to manage your project, run
-
+    >
     > ```uv venv .venv --python 3.12.3```
 
 
@@ -31,11 +31,11 @@ The core concept is based on generalizing iterated-sum signatures from 1D time-s
     ```
 
     > If you are using uv to manage your environment, run
-
+    >
     > ```mkdir plots data history models hpruns```
-
+    >
     > and then
-
+    >
     > ```uv sync```
 
 1. If you would like to track experiments and running hyperparameter sweeps, register on Weight and Biases platform, `wandb`, to obtain the following: `WANDB_API_KEY`, `WANDB_PROJECT_NAME`, and `WANDB_ENTITY_NAME`. Create a `.env` file in the project root directory and store these informatuion there. These will be used for experiment tracking.
