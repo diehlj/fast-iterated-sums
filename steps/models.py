@@ -61,6 +61,7 @@ class FISLayer(nn.Module):
         self.semiring = semiring
         self.num_trees = num_trees
         self.num_nodes = num_nodes
+        self.tree_type = tree_type
         self.seed = seed
         self.param_init = param_init
 
@@ -88,7 +89,7 @@ class FISLayer(nn.Module):
             num_trees=self.num_trees,
             num_nodes=self.num_nodes,
             seed=self.seed,
-            tree_type=tree_type,
+            tree_type=self.tree_type,
         )
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
