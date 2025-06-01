@@ -51,7 +51,7 @@ def create_forest(
         num_trees: number of trees to generate
         num_nodes: number of nodes in each tree
         seed: random seed for reproducibility
-        tree_type: type of tree to generate ('random', 'linear', 'linear_NW')
+        tree_type: type of tree to generate ('random', 'linear', 'linear_NE')
 
     Returns:
         list: of trees
@@ -82,11 +82,11 @@ def create_forest(
             for _ in range(num_trees)
         ]
 
-    elif tree_type == TreeType.LINEAR_NW:
+    elif tree_type == TreeType.LINEAR_NE:
 
         def cardinal_generator():
             while True:
-                yield TreeDirection.NW
+                yield TreeDirection.NE
 
         return [
             linear_tree(num_nodes, alpha_generator, cardinal_generator())
@@ -151,6 +151,6 @@ if __name__ == "__main__":
     for t in create_forest(gen(), 10, 3, 0, tree_type="linear"):
         print(t)
         pretty_print_tree(t)
-    for t in create_forest(gen(), 10, 3, 0, tree_type="linear_NW"):
+    for t in create_forest(gen(), 10, 3, 0, tree_type="linear_NE"):
         print(t)
         pretty_print_tree(t)

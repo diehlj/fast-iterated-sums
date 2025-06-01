@@ -7,7 +7,7 @@ import torch
 class TreeType(StrEnum):
     RANDOM = auto()
     LINEAR = auto()
-    LINEAR_NW = "linear_NW"
+    LINEAR_NE = "linear_NE"
 
 
 class ResultDir(StrEnum):
