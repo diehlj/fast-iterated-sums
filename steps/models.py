@@ -423,7 +423,7 @@ class FISAutoEncoder(nn.Module):
         super().__init__()
 
         self.pe = PE(
-            pe_type="learned_2d",
+            pe_type="conv",
             dim=in_channels,
             H=28,
             W=28,
