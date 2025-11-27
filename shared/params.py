@@ -33,7 +33,7 @@ CLF_RANDOM_HYPERPARAMS = {
 
 AD_TRAIN_HYPERPARAMS = {
     "batch_size": 16,
-    "latent_dim": 32,
+    "latent_dim": 64,
     "num_nodes": 3,
     "seed": 42,
 }

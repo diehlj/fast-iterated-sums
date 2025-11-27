@@ -14,7 +14,6 @@ from shared.defintions import (
     ResnetMode,
     TreeType,
 )
-from shared.pe import PE
 from shared.sums import sum_trees
 
 
@@ -422,12 +421,12 @@ class FISAutoEncoder(nn.Module):
     ):
         super().__init__()
 
-        self.pe = PE(
-            pe_type="conv",
-            dim=in_channels,
-            H=28,
-            W=28,
-        )
+        # self.pe = PE(
+        #     pe_type="conv",
+        #     dim=in_channels,
+        #     H=28,
+        #     W=28,
+        # )
 
         self.encoder = nn.Sequential(
             FISLayer(
@@ -469,7 +468,7 @@ class FISAutoEncoder(nn.Module):
         )
 
     def forward(self, x):
-        x = self.pe(x)
+        # x = self.pe(x)
         x = self.encoder(x)
         x = self.decoder(x)
         return x
