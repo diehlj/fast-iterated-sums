@@ -88,6 +88,7 @@ def train_autoencoder(
     validation_loader: DataLoader,
     num_epochs: int,
     device: str,
+    verbose: bool = False,
 ) -> tuple[list[float], list[float]]:
     criterion = nn.MSELoss()
     optimizer = torch.optim.Adam(ae.parameters(), lr=1e-3)
@@ -132,8 +133,9 @@ def train_autoencoder(
             val_loss_avg = val_loss_sum / len(validation_loader)
             validation_losses.append(val_loss_avg)
 
-        print(
-            f"Epoch [{epoch + 1}/{num_epochs}], train loss: {train_loss_avg:.4f}, validation loss: {val_loss_avg:.4f}"
-        )
+        if verbose:
+            print(
+                f"Epoch [{epoch + 1}/{num_epochs}], train loss: {train_loss_avg:.4f}, validation loss: {val_loss_avg:.4f}"
+            )
 
     return train_losses, validation_losses

@@ -193,25 +193,29 @@ def training_pipeline(
 def ad_training_pipeline(
     category: str,
     hyperparams: dict,
+    seed: int,
     semiring: str,
     tree_type: str,
     num_epochs: int,
     ablation: bool,
+    verbose: bool = False,
 ):
+    hyperparams["seed"] = seed
+
     logger = get_logger(__name__)
-    logger.info(
-        f"Anomaly detection model training pipeline has started. Category: {category}"
-    )
+    # logger.info(
+    #     f"Anomaly detection model training pipeline has started. Category: {category}"
+    # )
 
     DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     ARTIFACT_TAG = f"ad_category={category}_ablation={ablation}"
 
-    logger.info("Loading data...")
+    # logger.info("Loading data...")
     loader = load_mvtec(
         batch_size=hyperparams["batch_size"], category=category, include_val=True
     )
 
-    logger.info("Training auto-encoder...")
+    # logger.info("Training auto-encoder...")
     fe = build_feature_extractor()
     fe.to(DEVICE)
 
@@ -239,12 +243,12 @@ def ad_training_pipeline(
         num_epochs=num_epochs,
         device=DEVICE,
     )
-    torch.save(
-        obj=ae.state_dict(),
-        f=f"./models/{ARTIFACT_TAG}_ae.pt",
-    )
+    # torch.save(
+    #     obj=ae.state_dict(),
+    #     f=f"./models/{ARTIFACT_TAG}_ae.pt",
+    # )
 
-    logger.info("Evaluating anomaly detection on the test set...")
+    # logger.info("Evaluating anomaly detection on the test set...")
     evaluator = evaluate_anomaly_detector(
         category=category,
         transform=loader.transform,
@@ -253,35 +257,37 @@ def ad_training_pipeline(
         ae=ae,
         device=DEVICE,
     )
-    print(f"category: {category}, auc roc score: {evaluator.auc_roc_score}")
+    # print(f"category: {category}, auc roc score: {evaluator.auc_roc_score}")
 
-    history = dict(
-        semiring=semiring,
-        tree_type=tree_type,
-        hyperparams=hyperparams,
-        num_epochs=num_epochs,
-        y_true=evaluator.y_true,
-        y_score=evaluator.y_score,
-        auc_roc_score=evaluator.auc_roc_score,
-        thresholds=evaluator.thresholds,
-        average_precision=evaluator.average_precision,
-        fpr=evaluator.fpr,
-        tpr=evaluator.tpr,
-        precision=evaluator.precision,
-        recall=evaluator.recall,
-        seg_map=evaluator.seg_map,
-        train_loss=train_loss,
-        val_loss=val_loss,
-    )
-    dump_data(
-        data=history,
-        fname=f"{ARTIFACT_TAG}_history.pkl",
-        path="./history",
-    )
+    if verbose:
+        history = dict(
+            semiring=semiring,
+            tree_type=tree_type,
+            hyperparams=hyperparams,
+            num_epochs=num_epochs,
+            y_true=evaluator.y_true,
+            y_score=evaluator.y_score,
+            auc_roc_score=evaluator.auc_roc_score,
+            thresholds=evaluator.thresholds,
+            average_precision=evaluator.average_precision,
+            fpr=evaluator.fpr,
+            tpr=evaluator.tpr,
+            precision=evaluator.precision,
+            recall=evaluator.recall,
+            seg_map=evaluator.seg_map,
+            train_loss=train_loss,
+            val_loss=val_loss,
+        )
+        dump_data(
+            data=history,
+            fname=f"{ARTIFACT_TAG}_history.pkl",
+            path="./history",
+        )
 
-    logger.info(
-        "Anomaly detection training pipeline finished successfully. "
-        "Please see the ./models and ./history dirs for the trained model and training history respectifully."
-    )
+        logger.info(
+            "Anomaly detection training pipeline finished successfully. "
+            "Please see the ./models and ./history dirs for the trained model and training history respectifully."
+        )
 
-    return None
+    return evaluator.auc_roc_score
+    # return None
