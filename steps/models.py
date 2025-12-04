@@ -24,6 +24,7 @@ from shared.sums import (
     sum_tree,
     sum_trees,
 )
+from shared.pe import PE
 
 
 def load_resnet(
@@ -833,13 +834,6 @@ class FISAutoEncoder(nn.Module):
     ):
         super().__init__()
 
-        # self.pe = PE(
-        #     pe_type="conv",
-        #     dim=in_channels,
-        #     H=28,
-        #     W=28,
-        # )
-
         self.encoder = nn.Sequential(
             FISLayerParameterSharingV2(
                 in_channels=in_channels,
@@ -848,7 +842,7 @@ class FISAutoEncoder(nn.Module):
                 semiring=semiring,
                 seed=seed,
                 tree_type="parameter_sharing_v2",
-                use_complex=True,
+                use_complex=False,
                 use_discounted_sums=True,
             ),
             nn.BatchNorm2d(num_features=2 * latent_dim),
@@ -860,7 +854,7 @@ class FISAutoEncoder(nn.Module):
                 semiring=semiring,
                 seed=seed,
                 tree_type="parameter_sharing_v2",
-                use_complex=True,
+                use_complex=False,
                 use_discounted_sums=True,
             ),
             nn.BatchNorm2d(num_features=latent_dim),
@@ -884,7 +878,7 @@ class FISAutoEncoder(nn.Module):
         )
 
     def forward(self, x):
-        # x = self.pe(x)
+
         x = self.encoder(x)
         x = self.decoder(x)
         return x
