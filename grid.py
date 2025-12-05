@@ -17,3 +17,6 @@ def main() -> None:
         print(f"seed={seed}, auc={auc * 100:.1f}%")
 
     return None
+
+if __name__ == "__main__":
+    main()
