@@ -1,0 +1,62 @@
+program: train.py
+project: fast-iterated-sums-nextgen-sweeps
+name: fis_convnext-cifar10-adamw-baseline
+description: |
+  Baseline hyperparameter sweep for FIS ConvNext on CIFAR-10.
+  Establishing initial baseline performance for the ConvNext architecture
+  with FIS (Fast Iterated Sums) integration.
+  
+  #convnext #cifar10 #adamw #baseline
+method: grid
+#metric:
+#  goal: maximize
+#  name: val/accuracy
+parameters:
+  experiment:
+    value: fis_convnext-cifar10-adamw
+  
+  model.model_mode:
+    value: base
+
+  # Learning rate search - broader range for initial exploration
+  #optimizer.lr:
+  #  distribution: log_uniform_values
+  #  min: 0.01
+  #  max: 0.3
+  
+  ## Weight decay search
+  #optimizer.weight_decay:
+  #  distribution: log_uniform_values
+  #  min: 0.0001
+  #  max: 0.01
+  
+  ## Batch size options
+  loader.batch_size:
+    values:
+      - 32
+  
+  # Training duration
+  trainer.max_epochs:
+    values:
+      - 100
+  
+  # Model configuration - keep base settings
+  
+  train.seed:
+    value: 2222
+  
+  # Performance optimizations
+  trainer.watch_model:
+    value: false
+  trainer.track_grad_norm:
+    value: -1
+  #trainer.gradient_clip_val:
+  #  values:
+  #    - 0.0
+  #    - 1.0
+
+command:
+  - ${env}
+  - ${interpreter}
+  - ${program}
+  - ${args_no_hyphens}

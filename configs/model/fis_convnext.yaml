@@ -1,0 +1,16 @@
+_target_: src.models.fis_resnet_v1.FISConvNext
+seed: ${train.seed}
+model_mode: l4
+pool_mode: max
+semiring: maxplus
+num_nodes: 3
+tree_type: random
+
+use_complex: false
+complex_init_r_min: 0.0
+complex_init_r_max: 1.0
+complex_init_max_phase: 6.283185307179586 # ${2 * 3.141592653589793}
+use_discounted_sums: false
+discount_init: 0.99
+sums_internal_activation: null
+match_dim_cnn: false

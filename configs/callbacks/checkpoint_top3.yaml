@@ -1,0 +1,20 @@
+model_checkpoint:
+  every_n_epochs: 1
+  save_top_k: 3  # otherwise, the previous one is deleted
+  filename: "{epoch:02d}"
+  # monitor: "val/loss"
+  monitor: "val/accuracy"
+  # mode: "min"
+  mode: "max"
+  auto_insert_metric_name: True
+  verbose: True
+  dirpath: "checkpoints/"
+  enable_version_counter: True
+
+
+# early_stopping:
+#   _target_: lightning.pytorch.callbacks.EarlyStopping
+#   monitor: "val/acc" # name of the logged metric which determines when model is improving
+#   mode: "max" # can be "max" or "min"
+#   patience: 100 # how many epochs of not improving until training stops
+#   min_delta: 0 # minimum change in the monitored metric needed to qualify as an improvement

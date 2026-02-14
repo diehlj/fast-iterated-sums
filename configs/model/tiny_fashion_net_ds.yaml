@@ -1,0 +1,5 @@
+_target_: src.models.tiny_fashion_net.TinyFashionNetDS
+ch1: 32
+ch2: 64
+ch3: 128
+p_drop: 0.0

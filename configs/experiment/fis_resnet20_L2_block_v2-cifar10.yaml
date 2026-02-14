@@ -1,0 +1,44 @@
+# @package _global_
+defaults:
+  - /pipeline: cifar10
+  - /model: fis_resnet20_L2
+  # - override /scheduler: cosine_warmup_restarts
+  - override /scheduler: cosine
+  - override /optimizer: sgd
+
+#scheduler:
+#  num_warmup_steps: 100
+#  num_training_steps: 78125  # (50000 / 32) * 50 epochs = 1562.5 * 50 = 78,125
+#  num_cycles: 3
+scheduler:
+  T_max: ${trainer.max_epochs}
+  eta_min: 0
+
+model:
+  seeds: [0,2]  # For parameter sharing version, specify two seeds.
+  model_mode: l2_block_v2  # Use FISBlockV2 with two different seeds for the two fis layers.
+  tree_type: parameter_sharing_v0
+  num_nodes: 2
+
+optimizer:
+  lr: 0.1
+  momentum: 0.9
+  dampening: 0
+  weight_decay: 0.0005
+  nesterov: True
+
+loader:
+  batch_size: 128
+
+trainer:
+  max_epochs: 50
+  watch_model: false #true  # [THIS IS MASSIVELY SLOWING TRAINING DOWN] Watch model parameters+gradients with wandb.
+  track_grad_norm: -1 #2 # [THIS IS MASSIVELY SLOWING TRAINING DOWN] Track L2 norms of gradients
+
+dataset:
+  train_transform: 
+    # _target_: src.datasets.transforms.cifar.TestTransform
+    _target_: src.datasets.transforms.cifar.BaselineTransform
+
+train:
+  seed: 2222

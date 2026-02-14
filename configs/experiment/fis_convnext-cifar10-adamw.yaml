@@ -1,0 +1,48 @@
+# @package _global_
+defaults:
+  - /pipeline: cifar10
+  - /model: fis_convnext
+  - /callbacks:
+    - log_fis_images
+    - log_gamma_parameters
+    - log_lambda_parameters
+  - override /scheduler: onecycle 
+  - override /optimizer: adamw
+
+callbacks:
+  log_fis_images:
+    log_layers: all
+
+
+scheduler:
+  max_lr: 0.001
+  epochs: ${trainer.max_epochs}
+  steps_per_epoch: 1563
+
+
+optimizer:
+  lr: 0.001
+  weight_decay: 0.1
+
+loader:
+  batch_size: 32
+  num_workers: 8
+
+trainer:
+  max_epochs: 100
+  watch_model: false
+  track_grad_norm: -1
+
+dataset:
+  train_transform: 
+    _target_: src.datasets.transforms.cifar.BaselineTransform
+    image_size: 224
+
+  test_transform:
+    image_size: 224
+
+train:
+  optimizer_param_grouping:
+    bias_weight_decay: False
+    normalization_weight_decay: False
+  seed: 2222

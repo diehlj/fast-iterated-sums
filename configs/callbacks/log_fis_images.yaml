@@ -1,0 +1,6 @@
+log_fis_images:
+  # _target_: src.callbacks.wandb.LogFISImages
+  log_freq: 100  # Log every 100 training steps
+  num_samples: 8  # Number of sample images to log
+  # log_layers: ['layer1.fis1', 'layer2.fis1', 'layer3.fis1']  # FIS layers to monitor
+  log_layers: 'all'

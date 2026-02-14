@@ -1,0 +1,11 @@
+# XXX it would be better to have one resnet with configurable size
+_target_: src.models.dynamic_resnet.ResNet18
+cifar_size: True  # XXX Should come from dataset
+se_rd_ratio: 0.25 # Squeeze-and-Excitation reduction ratio
+bottleneck: False
+
+input_channels: 3 # XXX Should come from dataset
+input_dim: 2      # XXX Should come from dataset
+resnet_dropout: 0.0
+stochastic_depth: False
+squeeze_excitation: False

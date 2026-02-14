@@ -1,0 +1,5 @@
+log_cnn_images:
+  # _target_: src.callbacks.wandb.LogFISImages
+  log_freq: 100  # Log every 100 training steps
+  num_samples: 8  # Number of sample images to log
+  log_layers: ['block1a', 'block1b', 'block2a', 'block2b']  # CNN layers to monitor

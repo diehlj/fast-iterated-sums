@@ -1,0 +1,6 @@
+_target_: src.models.fis_resnet_v1.FISEfficientNet
+seed: ${train.seed}
+model_mode: s3
+pool_mode: max
+semiring: maxplus
+num_nodes: 3

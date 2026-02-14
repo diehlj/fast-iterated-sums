@@ -1,0 +1,2 @@
+running_max_logger:
+  metrics_to_track: ["val/accuracy", "val/acc", "val/bpb"]  # Add your specific metric names here

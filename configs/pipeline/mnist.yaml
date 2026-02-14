@@ -1,0 +1,24 @@
+# @package _global_
+#model:
+#  task: 'Classification'
+#  cifar_size: True
+
+# @package _global_
+defaults:
+  - /trainer:   default
+  - /loader:    default
+  - /dataset:   mnist
+  - /task: multiclass_classification
+  - /optimizer: adamw
+  - /scheduler: constant
+
+#train:
+#  monitor: val/accuracy # Needed for plateau scheduler
+#  mode: max ????
+
+#encoder: embedding
+#
+#decoder:
+#  _name_: sequence
+#  mode: last
+#  use_lengths: true

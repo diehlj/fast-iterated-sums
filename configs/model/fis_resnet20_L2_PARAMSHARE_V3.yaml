@@ -1,0 +1,12 @@
+_target_: src.models.fis_resnet_v1.FISResNet
+seed: ${train.seed}
+model_mode: l2
+resnet_mode: resnet20
+tree_type: parameter_sharing_v3
+data_name: cifar10
+pool_mode: max
+semiring: maxplus
+maxplus_linear: false
+use_valuation: false
+maxplus_normalization: false
+num_nodes: 4

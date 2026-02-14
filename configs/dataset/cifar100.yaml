@@ -1,0 +1,11 @@
+# @package _global_
+dataset:
+  _target_: src.datasets.cifar.CIFAR100DataModule
+  name: CIFAR100
+  train_transform: 
+    _target_: src.datasets.transforms.cifar.RandAugmentTransform
+    # _target_: src.datasets.transforms.cifar.TestTransform
+    # _target_: src.datasets.transforms.cifar.BaselineTransform
+    cutout_size: 8
+  test_transform: 
+    _target_: src.datasets.transforms.cifar.TestTransform

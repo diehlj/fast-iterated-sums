@@ -1,0 +1,14 @@
+# gpus: 1                    # set `1` to train on GPU, `0` to train on CPU only
+accumulate_grad_batches: 1 # Gradient accumulation every n batches
+max_epochs: 200
+                           # accelerator: ddp # Automatically set if gpus > 1
+gradient_clip_val: 0.0
+log_every_n_steps: 10
+limit_train_batches: null   # train on full dataset, can be used to toggle quick run; jd: 1.0 shows as 1 in run which is confusing
+limit_val_batches: null     # validate on full dataset, can be used to toggle quick run; jd: 1.0 shows as 1 in run which is confusing
+overfit_batches: 0        # XXX Unexpected behavior: "Consistent batches are
+                          # used for both training and validation across epochs, but training and validation
+                          # use different sets of data" So: only watch train/acc!
+track_grad_norm: -1        # Set to 2 to track L2 norms of gradients
+watch_model: false        # Whether to watch model with wandb (can be expensive).
+                          # track_grad_norm is a cheaper alternative to watch gradient norms.

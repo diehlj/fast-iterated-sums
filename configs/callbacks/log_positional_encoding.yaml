@@ -1,0 +1,4 @@
+log_positional_encoding:
+  log_freq: 1000 # once is enough
+  num_channels: 16
+  log_modules: ['pe', 'pos_enc', 'positional']

@@ -1,0 +1,6 @@
+_target_: src.models.tiny_fashion_net.TinyFashionNet
+ch1: 32
+ch2: 64
+ch3: 128
+p_drop: 0.0
+use_skip_connections: false

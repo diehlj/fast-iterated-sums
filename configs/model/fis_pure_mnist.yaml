@@ -1,0 +1,9 @@
+_target_: src.models.fis_pure.fis_resnet_mnist
+num_classes: 10
+semiring: maxplus
+num_nodes: 2
+tree_type: random
+seed: ${train.seed}
+maxplus_linear: false
+use_valuation: false
+maxplus_normalization: false

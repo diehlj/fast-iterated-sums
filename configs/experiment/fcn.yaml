@@ -1,0 +1,12 @@
+# @package _global_
+defaults:
+  - /pipeline: cifar10
+  - /model: fcn
+
+train:
+  optimizer_param_grouping:
+    bias_weight_decay: False
+    normalization_weight_decay: False
+
+optimizer:
+  weight_decay: 0.1234

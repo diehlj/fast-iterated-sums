@@ -1,0 +1,41 @@
+defaults:
+  - _self_  # jd: The _self_ entry determines the relative position of this config in the Defaults List. If it is not specified, it is added automatically as the last item.
+  # - pipeline: cifar10
+  # - model: fcn
+  - experiment: base
+  - callbacks:
+    - base
+    - checkpoint_top3 # jd: XXX I could not figure out how to overwrite this
+    - running_max_logger # Log running max of validation metrics to wandb
+
+# jd: XXX This info is probably better specified somewhere else
+train:
+  seed: 2222
+  interval: step # Used/set by scheduler. Also used by LR monitor.
+  compile: False
+  monitor: val/accuracy # XXX Should be specified by pipeline. Used by scheduler (plateau) and checkpointer
+  debug: False
+  debug_show_data: False
+  # use_default_optimizer_param_grouping: False
+  #optimizer_param_grouping:
+  #  bias_weight_decay: False
+  #  normalization_weight_decay: False
+  layer_decay:
+    _name_: null
+    decay: 0.7
+
+trainer:
+  deterministic: False # cumsum does not support deterministic ..
+  enable_progress_bar: True # set to false, to not clutter wandb logging
+
+hydra:
+ job:
+  chdir: True # Change the working directory to outputs/...
+
+wandb:
+  project: nevermind # Defaults to a throwaway project
+  name: null    # hydra.job.name ?
+  job_type: training
+  mode: online # choices=['online', 'offline', 'disabled']
+  save_dir: null
+  notes: null

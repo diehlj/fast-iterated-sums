@@ -1,0 +1,10 @@
+# @package _global_
+dataset:
+  _target_: src.datasets.mnist.MNISTDataModule
+  name: MNIST
+  train_transform: 
+    _target_: src.datasets.transforms.mnist.TestTransform
+    # _target_: src.datasets.transforms.mnist.BaselineTransform
+    cutout_size: 4
+  test_transform: 
+    _target_: src.datasets.transforms.mnist.TestTransform

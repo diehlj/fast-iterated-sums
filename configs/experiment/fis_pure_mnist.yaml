@@ -1,0 +1,39 @@
+# @package _global_
+defaults:
+  - /pipeline: mnist
+  - /model: fis_pure_mnist
+  - /callbacks:
+    # - log_image_predictions
+    - log_fis_images
+
+## Experiment configuration
+#train:
+#  monitor: val/accuracy
+#  mode: max
+#
+## Data configuration
+#data:
+#  batch_size: 128
+#  num_workers: 4
+#  pin_memory: true
+#
+## Training parameters
+#trainer:
+#  max_epochs: 50
+#  precision: 32
+#  accelerator: auto
+#  devices: auto
+#  log_every_n_steps: 10
+#  val_check_interval: 1.0
+#  check_val_every_n_epoch: 1
+#
+## Model-specific parameters
+#model:
+#  num_classes: 10
+#  semiring: real
+#  num_nodes: 2
+#  tree_type: random
+#  seed: ${train.seed}
+#  maxplus_linear: false
+#  use_valuation: false
+#  maxplus_normalization: false

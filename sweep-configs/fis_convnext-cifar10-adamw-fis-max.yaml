@@ -1,0 +1,109 @@
+program: train.py
+project: fast-iterated-sums-nextgen-sweeps
+name: fis_convnext-cifar10-adamw-fis-max
+description: |
+  fis maxtimes/maxplus
+  
+  #convnext #cifar10 #adamw
+method: bayes
+metric:
+  goal: maximize
+  name: val/accuracy
+parameters:
+  experiment:
+    value: fis_convnext-cifar10-adamw
+  
+  model.model_mode:
+    values:
+    - l2
+    - l4
+
+  model.tree_type:
+    values:
+    - parameter_sharing_v2
+
+  model.semiring:
+    values:
+    - maxtimes
+    - maxplus
+
+  model.use_discounted_sums:
+    values:
+    - true
+    - false
+
+  model.discount_init:
+    values:
+    - 0.1
+    - 0.0
+    - -0.1
+
+  model.sums_internal_activation:
+    values:
+    - null
+    - gelu
+
+  model.seed:
+    values:
+      - [1, 2, 3]
+      - [65, 90, 115]
+      - [130, 155, 180]
+      - [195, 220, 245]
+      - [260, 285, 310]
+      - [325, 350, 375]
+      - [450, 475, 500]
+      - [515, 540, 565]
+      - [580, 605, 630]
+      - [695, 720, 745]
+      - [760, 785, 810]
+
+  model.match_dim_cnn:
+    values:
+    # - true
+    - false
+
+  scheduler.epochs:
+    value: 100 # To match the full training runs
+
+  # Learning rate search - broader range for initial exploration
+  #optimizer.lr:
+  #  distribution: log_uniform_values
+  #  min: 0.01
+  #  max: 0.3
+  
+  ## Weight decay search
+  #optimizer.weight_decay:
+  #  distribution: log_uniform_values
+  #  min: 0.0001
+  #  max: 0.01
+  
+  ## Batch size options
+  loader.batch_size:
+    values:
+      - 32
+  
+  # Training duration
+  trainer.max_epochs:
+    values:
+      - 10
+  
+  # Model configuration - keep base settings
+  
+  train.seed:
+    value: 2222
+  
+  # Performance optimizations
+  trainer.watch_model:
+    value: false
+  trainer.track_grad_norm:
+    value: -1
+  #trainer.gradient_clip_val:
+  #  values:
+  #    - 0.0
+  #    - 1.0
+
+command:
+  - ${env}
+  - ${interpreter}
+  - ${program}
+  - ${args_no_hyphens}
